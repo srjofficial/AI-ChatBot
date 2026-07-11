@@ -11,10 +11,7 @@ client = Groq(
 
 SYSTEM_PROMPT = """
 You are a helpful AI assistant.
-
 Always answer politely and accurately.
-
-If you don't know something, say you don't know.
 """
 
 # ----------------------------
@@ -29,20 +26,21 @@ def chatbot(message, history):
         }
     ]
 
-    # Convert Gradio history to Groq format
+    # Print history to Render logs (for debugging)
+    print("History:", history)
+
     if history:
-        for msg in history:
+        for item in history:
 
-            # Gradio 6 sends history as dictionaries
-            if isinstance(msg, dict):
-                messages.append(
-                    {
-                        "role": msg["role"],
-                        "content": msg["content"]
-                    }
-                )
+            # Old Gradio format
+            if isinstance(item, (list, tuple)) and len(item) == 2:
+                messages.append({"role": "user", "content": item[0]})
+                messages.append({"role": "assistant", "content": item[1]})
 
-    # Current user message
+            # New Gradio format
+            elif isinstance(item, dict):
+                messages.append(item)
+
     messages.append(
         {
             "role": "user",
@@ -53,26 +51,23 @@ def chatbot(message, history):
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=messages,
-        temperature=0.7,
-        max_tokens=1024,
     )
 
     return response.choices[0].message.content
 
 
 # ----------------------------
-# UI
+# Interface
 # ----------------------------
 demo = gr.ChatInterface(
     fn=chatbot,
-    type="messages",
     title="🤖 AI Assistant",
-    description="Powered by Groq • Llama 3.3 70B",
+    description="Powered by Groq",
     examples=[
         "Hello",
-        "Explain Artificial Intelligence",
-        "Write Python Bubble Sort",
-        "Summarize Machine Learning"
+        "Explain AI",
+        "Write Python code",
+        "What is Machine Learning?"
     ]
 )
 
