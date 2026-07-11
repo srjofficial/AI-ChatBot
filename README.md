@@ -44,7 +44,7 @@ Designed as a lightweight yet scalable AI assistant, the project demonstrates mo
 
 ## Desktop
 
-> Replace this with your chatbot screenshot
+
 
 ```
 📷 assets/chatbot.png
@@ -54,7 +54,6 @@ Designed as a lightweight yet scalable AI assistant, the project demonstrates mo
 
 ## Demo
 
-🎥 Replace this section with your demo GIF or video.
 
 ---
 
@@ -132,7 +131,7 @@ python app.py
 🔗 **Render**
 
 ```
-https://YOUR_RENDER_URL.onrender.com
+https://ai-chatbot-lbcl.onrender.com/
 ```
 
 ---
