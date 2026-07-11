@@ -18,41 +18,27 @@ Always answer politely and accurately.
 # Chat Function
 # ----------------------------
 def chatbot(message, history):
-
     messages = [
-        {
-            "role": "system",
-            "content": SYSTEM_PROMPT
-        }
+        {"role": "system", "content": SYSTEM_PROMPT}
     ]
-
-    # Print history to Render logs (for debugging)
-    print("History:", history)
-
     if history:
         for item in history:
-
-            # Old Gradio format
+            # Old Gradio format (tuples)
             if isinstance(item, (list, tuple)) and len(item) == 2:
                 messages.append({"role": "user", "content": item[0]})
                 messages.append({"role": "assistant", "content": item[1]})
-
-            # New Gradio format
+            # New Gradio format (dicts) — strip to role/content only
             elif isinstance(item, dict):
-                messages.append(item)
-
-    messages.append(
-        {
-            "role": "user",
-            "content": message
-        }
-    )
+                messages.append({
+                    "role": item.get("role"),
+                    "content": item.get("content")
+                })
+    messages.append({"role": "user", "content": message})
 
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=messages,
     )
-
     return response.choices[0].message.content
 
 
