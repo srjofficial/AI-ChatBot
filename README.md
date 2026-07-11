@@ -38,25 +38,6 @@ Designed as a lightweight yet scalable AI assistant, the project demonstrates mo
 - ☁️ Deployable on Render
 - 🛠️ Easy to Extend
 
----
-
-# 🖼️ Preview
-
-## Desktop
-
-
-
-```
-📷 assets/chatbot.png
-```
-
----
-
-## Demo
-
-
----
-
 # 🏗️ Tech Stack
 
 | Category | Technology |
